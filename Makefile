@@ -7,7 +7,7 @@ GO_SRC := *.go
 BPF_SRC := *.bpf.c
 
 LIBBPF_HEADERS := /usr/include/bpf
-LIBBPF_OBJ := /usr/lib/$(ARCH)-linux-gnu/libbpf.a
+LIBBPF_OBJ := ./lib/libbpf.a
 
 .PHONY: all
 all: $(TARGET) $(TARGET_BPF)
