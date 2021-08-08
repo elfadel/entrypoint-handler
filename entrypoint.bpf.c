@@ -17,6 +17,8 @@ int trace_open(void *ctx) {
     return 0;
 }
 
+// Generic Entrypoint/Hook for SysCalls: HOW ??
+
 SEC("kprobe/sys_open")
 int kprobe__sys_open(void *ctx)
 {

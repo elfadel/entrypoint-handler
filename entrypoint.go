@@ -27,6 +27,8 @@ func main() {
 	userRequiredEvents[OpenatEventID] = false
 	userRequiredEvents[ExecveEventID] = true
 
+	generateBpfSources(userRequiredEvents, "./entries/entry.tpl.c", "./entries")
+
 	bpfModule, err := bpf.NewModuleFromFile("entrypoint.bpf.o")
 	must(err)
 	defer bpfModule.Close()
