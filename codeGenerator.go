@@ -20,7 +20,7 @@ func fileExists(path string) bool {
         return true
 }
 
-func buildSource(evtCfg *EventConfig, tplFile string, destDir string) error {
+func buildSource(evt4gen *Event4Gen, tplFile string, destDir string) error {
         tplText, err := ioutil.ReadFile(tplFile)
         if err != nil { // TODO: modify error handling
                 return fmt.Errorf("could not read template: %v", err)
@@ -33,7 +33,7 @@ func buildSource(evtCfg *EventConfig, tplFile string, destDir string) error {
                 return fmt.Errorf("could not parse template: %v", err)
         }
 
-        evtPath := fmt.Sprintf("%s.bpf.c", evtCfg.Name)
+        evtPath := fmt.Sprintf("%s.bpf.c", evt4gen.Name)
 
         fi, err := os.Create(filepath.Join(destDir, evtPath))
         if err != nil { // TODO: +2
@@ -41,7 +41,7 @@ func buildSource(evtCfg *EventConfig, tplFile string, destDir string) error {
         }
         defer fi.Close()
 
-        if err = t.Execute(fi, evtCfg); err != nil { // ???
+        if err = t.Execute(fi, evt4gen); err != nil { // ???
                 return fmt.Errorf("could not execute template: %v", err)
         }
 
@@ -67,12 +67,17 @@ func generateBpfSources(requiredEvents map[int32]bool, tplFile string, destDir s
                         continue
                 }
 
-                // eventParams, ret__ := allEventsParams[e]
-                // if !ret__ {
-                //         continue
-                // }
+                eventParams, ret__ := allEventsParams[e]
+                if !ret__ {
+                        continue
+                }
 
-                if err := buildSource(&event, tplFile, destDir); err != nil {
+                evt4gen := Event4Gen {
+                        event.Name,
+                        eventParams,
+                }
+
+                if err := buildSource(&evt4gen, tplFile, destDir); err != nil {
                         return fmt.Errorf("could not build source: %v", err)
                 }
         }

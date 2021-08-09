@@ -22,10 +22,16 @@ type Hook struct {
     Type           hookType
 }
 
+type Event4Gen struct {
+    Name           string
+    Args           []external.ArgMeta        
+}
+
 type EventConfig struct {
     ID             int32
     Name           string
     Hooks          []Hook
+    // Args           []external.ArgMeta
     // vars
 }
 
