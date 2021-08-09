@@ -24,7 +24,7 @@ func main() {
 	// TODO: Fill dynamically userRequiredEvents.
 	//       Should required parsing of Policies.
 	userRequiredEvents[OpenEventID] = false
-	userRequiredEvents[OpenatEventID] = false
+	userRequiredEvents[OpenatEventID] = true
 	userRequiredEvents[ExecveEventID] = true
 
 	generateBpfSources(userRequiredEvents, "./entries/entry.tpl.c", "./entries")

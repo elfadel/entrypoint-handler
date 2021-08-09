@@ -2,10 +2,6 @@
 
 package main
 
-import (
-	"github.com/aquasecurity/tracee/tracee-ebpf/external"
-)
-
 type hookType uint8
 
 const (
@@ -22,16 +18,21 @@ type Hook struct {
     Type           hookType
 }
 
+type ArgsWithPos struct {
+    Type           string
+    Name           string
+    Position       int32
+}
+
 type Event4Gen struct {
     Name           string
-    Args           []external.ArgMeta        
+    Args           []ArgsWithPos       
 }
 
 type EventConfig struct {
     ID             int32
     Name           string
     Hooks          []Hook
-    // Args           []external.ArgMeta
     // vars
 }
 
@@ -41,8 +42,8 @@ var allEvents = map[int32]EventConfig{
     ExecveEventID:      {ID: ExecveEventID, Name: "execve", Hooks: []Hook{{progName: "execve", attachName: "__x64_sys_execve", Type: kprobe}}},
 }
 
-var allEventsParams = map[int32][]external.ArgMeta{
-	OpenEventID:                   {{Type: "const char*", Name: "pathname"}, {Type: "int", Name: "flags"}, {Type: "mode_t", Name: "mode"}},
-	OpenatEventID:                 {{Type: "int", Name: "dirfd"}, {Type: "const char*", Name: "pathname"}, {Type: "int", Name: "flags"}, {Type: "mode_t", Name: "mode"}},
-	ExecveEventID:                 {{Type: "const char*", Name: "pathname"}, {Type: "const char*const*", Name: "argv"}, {Type: "const char*const*", Name: "envp"}},
+var allEventsParams = map[int32][]ArgsWithPos{
+	OpenEventID:                   {{Type: "char", Name: "pathname", Position: 1}, {Type: "int", Name: "flags", Position: 2}, {Type: "mode_t", Name: "mode", Position: 3}},
+	OpenatEventID:                 {{Type: "int", Name: "dirfd", Position: 1}, {Type: "char", Name: "pathname", Position: 2}, {Type: "int", Name: "flags", Position: 3}, {Type: "mode_t", Name: "mode", Position: 4}},
+	ExecveEventID:                 {{Type: "char", Name: "pathname", Position: 1}, {Type: "const char*const*", Name: "argv", Position: 2}, {Type: "const char*const*", Name: "envp", Position: 3}},
 }

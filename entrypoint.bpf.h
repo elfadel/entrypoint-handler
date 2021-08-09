@@ -13,8 +13,6 @@
 
 typedef __u64 u64;
 
-/* TODO!! This is too generic for this example, where can we pull it from? 
-*/
 #define BPF_MAP(_name, _type, _key_type, _value_type, _max_entries) \
     struct bpf_map_def SEC("maps") _name = {                        \
         .type = _type,                                              \
