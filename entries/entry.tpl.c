@@ -13,17 +13,14 @@ SEC("kprobe/sys_{{ .Name }}")
 int kprobe__sys_{{ .Name }}(struct pt_regs *ctx) {
 	__u64 pid = bpf_get_current_pid_tgid() >> 32;
 
-	struct pt_regs args = { };
-	bpf_probe_read(&args, sizeof(args), ctx);
-
 	bpf_printk("KPROBE ENTER ============================\n");
 	{{range $index, $elmt := .Args }}
 	{{if eq $elmt.Type "char"}}
 	char {{ $elmt.Name }}[128];
-	bpf_probe_read_str({{ $elmt.Name }}, sizeof({{ $elmt.Name }}), (const char *) PT_REGS_PARM{{ $elmt.Position }}(&args));
+	bpf_probe_read({{ $elmt.Name }}, sizeof({{ $elmt.Name }}), (void *)PT_REGS_PARM{{ $elmt.Position }}(ctx));
 	bpf_printk("\t{{ $elmt.Name }} = %s\n", {{ $elmt.Name }});
 	{{else if eq $elmt.Type "int"}}
-	int {{ $elmt.Name }} = ({{ $elmt.Type }})PT_REGS_PARM{{ $elmt.Position }}(&args);
+	int {{ $elmt.Name }} = ({{ $elmt.Type }})PT_REGS_PARM{{ $elmt.Position }}(ctx);
 	bpf_printk("\t{{ $elmt.Name }} = %d\n", {{ $elmt.Name }});
 	{{- end -}}
 	{{- end }}

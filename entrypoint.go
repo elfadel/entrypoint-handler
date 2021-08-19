@@ -25,10 +25,10 @@ func main() {
 
 	// TODO: Fill dynamically userRequiredEvents.
 	//       Should required parsing of Policies.
-	userRequiredEvents[OpenEventID] = false
+	userRequiredEvents[OpenEventID] = true
 	userRequiredEvents[OpenatEventID] = true
-	userRequiredEvents[ExecveEventID] = false
-	userRequiredEvents[ExecveatEventID] = false
+	userRequiredEvents[ExecveEventID] = true
+	userRequiredEvents[ExecveatEventID] = true
 
 	boolAttach		:= flag.Bool("attach", false, "compile and load eBPF progs")
 	boolGenerate 	:= flag.Bool("generate", false, "generate eBPF code")
