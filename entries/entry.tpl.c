@@ -7,7 +7,7 @@
 #include <bpf/bpf_tracing.h>
 #include <linux/ptrace.h>
 
-#include "entrypoint.bpf.h"
+#include "entry.bpf.h"
 
 SEC("kprobe/sys_{{ .Name }}")
 int kprobe__sys_{{ .Name }}(struct pt_regs *ctx) {
