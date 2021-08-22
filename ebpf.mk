@@ -1,5 +1,4 @@
 ARCH=$(shell uname -m)
-KERN=$(shell uname -r)
 CARCH = x86
 
 BPF_DIR := ./entries
@@ -13,8 +12,8 @@ all: $(TARGET_BPF)
 
 $(TARGET_BPF): %.o: %.c
 	clang \
-		-I /usr/include/$(ARCH)-linux-gnu                             \
-		-O2 -c -target bpf -D __TARGET_ARCH_$(CARCH)                  \
+		-I /usr/include/$(ARCH)-linux-gnu \
+		-O2 -g -c -target bpf -D __TARGET_ARCH_$(CARCH) \
 		-o $@ $<
 
 .PHONY: clean
