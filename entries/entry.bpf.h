@@ -11,6 +11,8 @@
 #include <linux/bpf.h>
 #include <bpf/bpf_helpers.h>
 
+typedef __u16 u16;
+typedef __u32 u32;
 typedef __u64 u64;
 
 #define BPF_MAP(_name, _type, _key_type, _value_type, _max_entries) \

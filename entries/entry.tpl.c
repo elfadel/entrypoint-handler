@@ -11,8 +11,6 @@
 
 SEC("kprobe/sys_{{ .Name }}")
 int kprobe__sys_{{ .Name }}(struct pt_regs *ctx) {
-	__u64 pid = bpf_get_current_pid_tgid() >> 32;
-
 	bpf_printk("\nKPROBE ENTER \n");
 	{{range $index, $elmt := .Args }}
 	{{if eq $elmt.Type "char"}}
