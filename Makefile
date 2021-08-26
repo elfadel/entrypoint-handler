@@ -1,6 +1,3 @@
-ARCH=$(shell uname -m)
-CARCH = x86
-
 TARGET := entrypoint
 
 BPF_DIR := ./entries

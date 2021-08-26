@@ -1,9 +1,6 @@
 // +build amd64
 
-package main 
-const sys_execve="__x64_sys_execve"
-const sys_open="__x64_sys_open"
-const sys_openat="__x64_sys_openat"
+package main
 
 // x86 64bit syscall numbers
 // Also used as event IDs

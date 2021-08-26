@@ -1,6 +1,11 @@
+// The below define fixes the 
+// "use of undeclared identifier 'KBUILD_MODNAME" error
+#define KBUILD_MODNAME "foo"
+
 #include <bpf/bpf_tracing.h>
 #include <linux/ptrace.h>
 #include <net/sock.h>
+#include <net/inet_sock.h>
 
 #include "entry.bpf.h"
 
@@ -41,7 +46,7 @@ int kprobe__sys_connect(struct pt_regs *ctx) {
 	sk = (struct sock *) PT_REGS_PARM1(ctx);
 	
 	struct ip4_tuple t = { };
-	if (!build_ip4_tuple(&t, skp)) {
+	if (!build_ip4_tuple(&t, sk)) {
 		return 0;
 	}
 
