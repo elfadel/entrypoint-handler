@@ -1,6 +1,3 @@
-ARCH=$(shell uname -m)
-CARCH = x86
-
 TARGET := entrypoint
 
 BPF_DIR := ./entries
@@ -23,5 +20,3 @@ $(TARGET): $(GO_SRC)
 .PHONY: clean
 clean:
 	go clean
-	rm -f ./entries/*.bpf.o
-	
