@@ -1,6 +1,4 @@
-ARCH=$(shell uname -m)
-
-KDIR=/lib/modules/$(shell uname -r)
+KDIR=/lib/modules/5.8.0#$(shell uname -r)
 INCLUDES += -I$(KDIR)/build/arch/x86/include/generated/uapi
 INCLUDES += -I$(KDIR)/build/arch/x86/include/generated
 INCLUDES += -I$(KDIR)/build/arch/x86/include/
@@ -24,6 +22,7 @@ all: $(TARGET_BPF)
 
 $(TARGET_BPF): %.o: %.c
 	$(CLANG) -S $(INCLUDES) \
+		-I headers \
 		-D__TARGET_ARCH_x86 -D__KERNEL__ \
 		-Wno-address-of-packed-member \
 		-Wno-unused-value \
@@ -37,9 +36,5 @@ $(TARGET_BPF): %.o: %.c
 
 .PHONY: clean
 clean:
-	go clean
 	rm -f ./entries/*.ll
 	rm -f ./entries/*.bpf.o
-
-# -O2 -g -c -target bpf
-# -o $@ $<

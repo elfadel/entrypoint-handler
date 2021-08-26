@@ -20,5 +20,3 @@ $(TARGET): $(GO_SRC)
 .PHONY: clean
 clean:
 	go clean
-	rm -f ./entries/*.bpf.o
-	

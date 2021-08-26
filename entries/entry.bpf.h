@@ -8,9 +8,12 @@
 #define asm_inline asm
 #endif
 
+#include <bpf_endian.h>
+
 #include <linux/bpf.h>
 #include <bpf/bpf_helpers.h>
 
+typedef __u8  u8;
 typedef __u16 u16;
 typedef __u32 u32;
 typedef __u64 u64;
