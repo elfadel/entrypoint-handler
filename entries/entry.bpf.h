@@ -12,6 +12,7 @@
 
 #include <linux/bpf.h>
 #include <bpf/bpf_helpers.h>
+#include <bpf/bpf_core_read.h>
 
 typedef __u8  u8;
 typedef __u16 u16;

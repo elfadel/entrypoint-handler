@@ -1,4 +1,4 @@
-KDIR=/lib/modules/$(shell uname -r)
+KDIR=/lib/modules/5.8.0#$(shell uname -r)
 INCLUDES += -I$(KDIR)/build/arch/x86/include/generated/uapi
 INCLUDES += -I$(KDIR)/build/arch/x86/include/generated
 INCLUDES += -I$(KDIR)/build/arch/x86/include/

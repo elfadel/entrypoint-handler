@@ -34,15 +34,18 @@ int build_ip4_tuple(struct ip4_tuple *ip_tuple, struct sock *skp) {
 	return 1;
 }
 
-SEC("kprobe/sys_connect")
-int kprobe__sys_connect(struct pt_regs *ctx) {
+SEC("kprobe/sys_bind")
+int kprobe__sys_bind(struct pt_regs *ctx) {
 	bpf_printk("KPROBE ENTER \n");
 
-	struct sock *sk;
-	sk = (struct sock*) PT_REGS_PARM1(ctx);
-	
+	struct sock *sock;
+	struct socket *socket;
+
+	socket = (struct socket*) PT_REGS_PARM1(ctx);
+	sock = BPF_CORE_READ(socket, sk);
+
 	struct ip4_tuple t = { };
-	if (!build_ip4_tuple(&t, sk)) {
+	if (!build_ip4_tuple(&t, sock)) {
 		bpf_printk("build_ip4_tuple() failed.\n");
 		return 0;
 	}
@@ -55,8 +58,8 @@ int kprobe__sys_connect(struct pt_regs *ctx) {
 	return 0;
 }
 
-SEC("kretprobe/sys_connect")
-int kretprobe__sys_connect(struct pt_regs *ctx) {
+SEC("kretprobe/sys_bind")
+int kretprobe__sys_bind(struct pt_regs *ctx) {
 	int ret = PT_REGS_RC(ctx);
 	bpf_printk("KRETPROBE EXIT with RET = %d\n", ret);
 
