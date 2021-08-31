@@ -43,6 +43,7 @@ var allEvents = map[int32]EventConfig{
     ExecveatEventID:    {ID: ExecveatEventID, Name: "execveat", Hooks: []Hook{{progName: "execveat", attachName: "__x64_sys_execveat", Type: kprobe}}},
     ConnectEventID:     {ID: ConnectEventID, Name: "connect", Hooks: []Hook{{progName: "connect", attachName: "__x64_sys_connect", Type: kprobe}}},
     BindEventID:        {ID: BindEventID, Name: "bind", Hooks: []Hook{{progName: "bind", attachName: "__x64_sys_bind", Type: kprobe}}},
+    ListenEventID:      {ID: ListenEventID, Name: "listen", Hooks: []Hook{{progName: "listen", attachName: "__x64_sys_listen", Type: kprobe}}},
 }
 
 var allEventsParams = map[int32][]ArgsWithPos{
@@ -50,5 +51,5 @@ var allEventsParams = map[int32][]ArgsWithPos{
 	OpenatEventID:                 {{Type: "int", Name: "dirfd", Position: 1}, {Type: "char", Name: "pathname", Position: 2}, {Type: "int", Name: "flags", Position: 3}, {Type: "mode_t", Name: "mode", Position: 4}},
 	ExecveEventID:                 {{Type: "char", Name: "pathname", Position: 1}, {Type: "const char*const*", Name: "argv", Position: 2}, {Type: "const char*const*", Name: "envp", Position: 3}},
     ExecveatEventID:               {{Type: "int", Name: "dirfd", Position: 1}, {Type: "char", Name: "pathname", Position: 2}, {Type: "const char*const*", Name: "argv", Position: 3}, {Type: "const char*const*", Name: "envp", Position: 4}, {Type: "int", Name: "flags", Position: 5}},
-    // TODO: add connect() and bind()
+    // TODO: add connect(), bind() and listen()
 }
