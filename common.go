@@ -44,6 +44,7 @@ var allEvents = map[int32]EventConfig{
     ConnectEventID:     {ID: ConnectEventID, Name: "connect", Hooks: []Hook{{progName: "connect", attachName: "__x64_sys_connect", Type: kprobe}}},
     BindEventID:        {ID: BindEventID, Name: "bind", Hooks: []Hook{{progName: "bind", attachName: "__x64_sys_bind", Type: kprobe}}},
     ListenEventID:      {ID: ListenEventID, Name: "listen", Hooks: []Hook{{progName: "listen", attachName: "__x64_sys_listen", Type: kprobe}}},
+    AcceptEventID:      {ID: AcceptEventID, Name: "accept", Hooks: []Hook{{progName: "accept", attachName: "__x64_sys_accept", Type: kprobe}}},
 }
 
 var allEventsParams = map[int32][]ArgsWithPos{
