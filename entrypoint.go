@@ -32,7 +32,8 @@ func main() {
 	userRequiredEvents[ConnectEventID] = false
 	userRequiredEvents[BindEventID] = false
 	userRequiredEvents[ListenEventID] = false
-	userRequiredEvents[AcceptEventID] = true
+	userRequiredEvents[AcceptEventID] = false
+	userRequiredEvents[SocketEventID] = true
 
 	boolAttach		:= flag.Bool("attach", false, "compile and load eBPF progs")
 	boolGenerate 	:= flag.Bool("generate", false, "generate eBPF code")
