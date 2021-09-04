@@ -28,8 +28,8 @@ int build_ip4_tuple(struct ip4_tuple *ip_tuple, struct sock *skp) {
 
 	ip_tuple->saddr = src_addr; // bpf_ntohl(src_addr);
 	ip_tuple->daddr = dst_addr; // bpf_ntohl(dst_addr);
-	ip_tuple->sport = src_port; // bpf_ntohs(src_port);
-	ip_tuple->dport = dst_port; // bpf_ntohs(dst_port);
+	ip_tuple->sport = src_port;
+	ip_tuple->dport = dst_port;
 
 	return 1;
 }
